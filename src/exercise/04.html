@@ -7,14 +7,30 @@
   <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
   <script type="text/babel">
-    // 🐨 Make a function called `message` which returns the JSX we want to share
+    // Props gets passed (that is, not only the attributes but also children)
+    function GreetingComponent(props) {
+      return (
+        <>
+          <div className="greeting">
+            {props.greeting} {props.subject}
+          </div>
+          <div className="body">{props.children}</div>
+        </>
+      )
+    }
 
-    // 🐨 use that function in place of the divs below with:
-    // 💰 {message({children: 'Hello World'})} {message({children: 'Goodbye World'})}
+    const debug = React.createElement(
+      GreetingComponent,
+      {greeting: 'Hello', subject: 'World'},
+      'Some Extra Body',
+    )
+    console.log(debug)
+
     const element = (
       <div className="container">
-        <div className="message">Hello World</div>
-        <div className="message">Goodbye World</div>
+        <GreetingComponent greeting="Hello" subject="Bram">
+          Some Extra Body
+        </GreetingComponent>
       </div>
     )
 

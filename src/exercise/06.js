@@ -4,32 +4,53 @@
 import * as React from 'react'
 
 function UsernameForm({onSubmitUsername}) {
-  // 🐨 add a submit event handler here (`handleSubmit`).
-  // 💰 Make sure to accept the `event` as an argument and call
-  // `event.preventDefault()` to prevent the default behavior of form submit
-  // events (which refreshes the page).
-  //
-  // 🐨 get the value from the username input (using whichever method
-  // you prefer from the options mentioned in the instructions)
-  // 💰 For example: event.target.elements[0].value
-  // 🐨 Call `onSubmitUsername` with the value of the input
+  const refContainer = React.useRef('Brampage');
+  // function handleFormSubmitWithRef(event) {
+  //   event.preventDefault();
+  //   console.dir(refContainer.current.value);
+  // }
 
-  // 🐨 add the onSubmit handler to the <form> below
+  // const [error, setError] = React.useState(null)
+  const [username, setUserName] = React.useState('');
 
-  // 🐨 make sure to associate the label to the input.
-  // to do so, set the value of 'htmlFor' prop of the label to the id of input
+  function handleFormSubmit(event) {
+    event.preventDefault()
+    // onSubmitUsername(event.target.elements.username.value)
+    onSubmitUsername(username)
+
+    console.dir(event.target) // Console.log would show us the dom node, dir shows us the object.
+  }
+
+  function handleChange(event) {
+    // const {value} = event.target
+    // const isLowerCase = value === value.toLowerCase()
+    // setError(isLowerCase ? null : 'Username must be lower case')
+
+    const {value} = event.target;
+    setUserName(value.toLowerCase());
+  }
+
   return (
-    <form>
+    <form onSubmit={handleFormSubmit}>
       <div>
-        <label>Username:</label>
-        <input type="text" />
+        <label htmlFor="username">Username:</label>
+        <input
+          ref={refContainer}
+          onChange={handleChange}
+          value={username}
+          id="username"
+          type="text"
+        />
       </div>
+      {/* {error ? <div role="alert" style={{color: 'red'}}>{error}</div> : null} */}
+      {/* <button disabled={!!error} type="submit">Submit</button> */}
       <button type="submit">Submit</button>
     </form>
   )
 }
 
 function App() {
+  // Prop gets passed to the UsernameForm (which is in this case a function)
   const onSubmitUsername = username => alert(`You entered: ${username}`)
   return <UsernameForm onSubmitUsername={onSubmitUsername} />
 }

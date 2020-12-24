@@ -4,10 +4,8 @@
 <body>
   <div id="root"></div>
 
-  <!-- 💣 remove this line
   <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
-  💣 remove this line -->
 
   <script type="module">
     const rootElement = document.getElementById('root')
@@ -15,14 +13,32 @@
     // You're going to re-implement this code using React!
     // 💣 So go ahead and delete this implementation (or comment it out for now)
     // These three lines are similar to React.createElement
-    const element = document.createElement('div')
-    element.textContent = 'Hello World' // 💰 in React, you set this with the "children" prop
-    element.className = 'container' // 💰 in React, this is also called the "className" prop
-    // This is similar to ReactDOM.render
-    rootElement.append(element)
+    // const element = document.createElement('div')
+    // element.textContent = 'Hello World' // 💰 in React, you set this with the "children" prop
+    // element.className = 'container' // 💰 in React, this is also called the "className" prop
+    // // This is similar to ReactDOM.render
+    // rootElement.append(element)
 
     // 🐨 Please re-implement the regular document.createElement code above
     // with these React API calls
     // 💰 The example in the markdown file should be a good hint for you.
+
+    const helloWorldType = 'h1';
+    const helloWorldProps = {id: 'hello-world', className: 'container', children: 'Hello World!'};
+    const helloWorldElement = React.createElement(helloWorldType, helloWorldProps);
+    ReactDOM.render(helloWorldElement, rootElement);
+
+
+    const helloWorldType2 = 'span';
+    const helloProps = {children: 'Hello', key: 1};
+    const worldProps = {children: 'World', key: 2};
+    const helloSpanElement = React.createElement(helloWorldType2, helloProps);
+    const worldSpanElement = React.createElement(helloWorldType2, worldProps);
+
+    const containerType = 'div';
+    const containerProps = {className: 'container', children: [helloSpanElement, worldSpanElement]};
+    const containerElement = React.createElement(containerType, containerProps);
+
+    ReactDOM.render(containerElement, rootElement);
   </script>
 </body>
